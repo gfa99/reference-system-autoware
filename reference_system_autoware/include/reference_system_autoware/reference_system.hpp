@@ -19,8 +19,9 @@
 
 using namespace std::chrono_literals;
 
-std::vector<node::NodeBaseType> create_reference_system_nodes() {
-  std::vector<node::NodeBaseType> nodes;
+std::vector<std::shared_ptr<node::NodeBaseType>>
+create_reference_system_nodes() {
+  std::vector<std::shared_ptr<node::NodeBaseType>> nodes;
 
 // ignore the warning about designated initializers - they make the code much
 // more readable
