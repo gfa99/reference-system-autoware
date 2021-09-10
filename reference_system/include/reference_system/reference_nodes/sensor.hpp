@@ -18,9 +18,9 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
-#include "reference_system_autoware/node_settings.hpp"
-#include "reference_system_autoware/sample_management.hpp"
-#include "reference_system_autoware/types.hpp"
+#include "reference_system/node_settings.hpp"
+#include "reference_system/sample_management.hpp"
+#include "reference_system/types.hpp"
 
 namespace reference_nodes {
 class Sensor : public rclcpp::Node {

@@ -15,7 +15,7 @@
 #include <chrono>
 #include <vector>
 
-#include "reference_system_autoware/config.hpp"
+#include "reference_system/config.hpp"
 
 using namespace std::chrono_literals;
 

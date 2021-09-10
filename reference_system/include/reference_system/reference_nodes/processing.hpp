@@ -18,46 +18,39 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
-#include "reference_system_autoware/node_settings.hpp"
-#include "reference_system_autoware/number_cruncher.hpp"
-#include "reference_system_autoware/sample_management.hpp"
-#include "reference_system_autoware/types.hpp"
+#include "reference_system/node_settings.hpp"
+#include "reference_system/number_cruncher.hpp"
+#include "reference_system/sample_management.hpp"
+#include "reference_system/types.hpp"
 
 namespace reference_nodes {
-class Reactor : public rclcpp::Node {
+class Processing : public rclcpp::Node {
  public:
-  Reactor(const ReactorSettings& settings)
+  Processing(const ProcessingSettings& settings)
       : Node(settings.node_name),
         number_crunch_time_(settings.number_crunch_time) {
-    uint64_t input_number = 0U;
-    for (const auto& input_topic : settings.inputs) {
-      subscriptions_.emplace_back(this->create_subscription<message_t>(
-          input_topic, 10,
-          [this, input_number](const message_t::SharedPtr msg) {
-            input_callback(input_number, msg);
-          }));
-      ++input_number;
-    }
+    subscription_ = this->create_subscription<message_t>(
+        settings.input_topic, 10,
+        [this](const message_t::SharedPtr msg) { input_callback(msg); });
     publisher_ = this->create_publisher<message_t>(settings.output_topic, 10);
   }
 
  private:
-  void input_callback(const uint64_t input_number,
-                      const message_t::SharedPtr input_message) const {
-    (void)input_number;
+  void input_callback(const message_t::SharedPtr input_message) const {
     auto number_cruncher_result = number_cruncher(number_crunch_time_);
 
     auto output_message = publisher_->borrow_loaned_message();
 
     fuse_samples(this->get_name(), output_message.get(), input_message);
 
-    output_message.get().data[0] = number_cruncher_result.empty();
+    // use result so that it is not optimizied away by some clever compiler
+    output_message.get().data[2] = number_cruncher_result.empty();
     publisher_->publish(std::move(output_message));
   }
 
  private:
   publisher_t publisher_;
-  std::vector<subscription_t> subscriptions_;
+  subscription_t subscription_;
   std::chrono::nanoseconds number_crunch_time_;
 };
 }  // namespace reference_nodes

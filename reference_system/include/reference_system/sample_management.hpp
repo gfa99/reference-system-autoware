@@ -1,6 +1,6 @@
 #pragma once
 
-#include "reference_system_autoware/types.hpp"
+#include "reference_system/types.hpp"
 
 #include <algorithm>
 #include <chrono>
