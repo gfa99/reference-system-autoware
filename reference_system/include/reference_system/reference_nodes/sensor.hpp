@@ -42,7 +42,7 @@ class Sensor : public rclcpp::Node {
   }
 
  private:
-  publisher_t publisher_;
+  rclcpp::Publisher<message_t>::SharedPtr publisher_;
   rclcpp::TimerBase::SharedPtr timer_;
 };
 }  // namespace reference_nodes

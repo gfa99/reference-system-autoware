@@ -56,8 +56,8 @@ class Reactor : public rclcpp::Node {
   }
 
  private:
-  publisher_t publisher_;
-  std::vector<subscription_t> subscriptions_;
+  rclcpp::Publisher<message_t>::SharedPtr publisher_;
+  std::vector<rclcpp::Subscription<message_t>::SharedPtr> subscriptions_;
   std::chrono::nanoseconds number_crunch_time_;
 };
 }  // namespace reference_nodes

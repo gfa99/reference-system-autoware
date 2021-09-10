@@ -37,6 +37,6 @@ class Command : public rclcpp::Node {
   }
 
  private:
-  subscription_t subscription_;
+  rclcpp::Subscription<message_t>::SharedPtr subscription_;
 };
 }  // namespace reference_nodes

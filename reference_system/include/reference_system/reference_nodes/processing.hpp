@@ -49,8 +49,8 @@ class Processing : public rclcpp::Node {
   }
 
  private:
-  publisher_t publisher_;
-  subscription_t subscription_;
+  rclcpp::Publisher<message_t>::SharedPtr publisher_;
+  rclcpp::Subscription<message_t>::SharedPtr subscription_;
   std::chrono::nanoseconds number_crunch_time_;
 };
 }  // namespace reference_nodes
