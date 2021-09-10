@@ -18,16 +18,11 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
+#include "reference_system_autoware/node_settings.hpp"
 #include "reference_system_autoware/sample_management.hpp"
 #include "reference_system_autoware/types.hpp"
 
-namespace node {
-struct SensorSettings {
-  std::string node_name;
-  std::string topic_name;
-  std::chrono::nanoseconds cycle_time;
-};
-
+namespace reference_nodes {
 class Sensor : public rclcpp::Node {
  public:
   Sensor(const SensorSettings& settings) : Node(settings.node_name) {
@@ -50,4 +45,4 @@ class Sensor : public rclcpp::Node {
   publisher_t publisher_;
   rclcpp::TimerBase::SharedPtr timer_;
 };
-}  // namespace node
+}  // namespace reference_nodes

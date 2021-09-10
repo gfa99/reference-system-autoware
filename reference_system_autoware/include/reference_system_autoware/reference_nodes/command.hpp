@@ -18,15 +18,11 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
+#include "reference_system_autoware/node_settings.hpp"
 #include "reference_system_autoware/sample_management.hpp"
 #include "reference_system_autoware/types.hpp"
 
-namespace node {
-struct CommandSettings {
-  std::string node_name;
-  std::string input_topic;
-};
-
+namespace reference_nodes {
 class Command : public rclcpp::Node {
  public:
   Command(const CommandSettings& settings) : Node(settings.node_name) {
@@ -43,4 +39,4 @@ class Command : public rclcpp::Node {
  private:
   subscription_t subscription_;
 };
-}  // namespace node
+}  // namespace reference_nodes

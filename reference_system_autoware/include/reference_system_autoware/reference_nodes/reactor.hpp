@@ -18,18 +18,12 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
+#include "reference_system_autoware/node_settings.hpp"
 #include "reference_system_autoware/number_cruncher.hpp"
 #include "reference_system_autoware/sample_management.hpp"
 #include "reference_system_autoware/types.hpp"
 
-namespace node {
-struct ReactorSettings {
-  std::string node_name;
-  std::vector<std::string> inputs;
-  std::string output_topic;
-  std::chrono::nanoseconds number_crunch_time;
-};
-
+namespace reference_nodes {
 class Reactor : public rclcpp::Node {
  public:
   Reactor(const ReactorSettings& settings)
@@ -66,4 +60,4 @@ class Reactor : public rclcpp::Node {
   std::vector<subscription_t> subscriptions_;
   std::chrono::nanoseconds number_crunch_time_;
 };
-}  // namespace node
+}  // namespace reference_nodes

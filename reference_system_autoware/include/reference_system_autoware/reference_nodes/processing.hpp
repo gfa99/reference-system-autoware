@@ -18,18 +18,12 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
+#include "reference_system_autoware/node_settings.hpp"
 #include "reference_system_autoware/number_cruncher.hpp"
 #include "reference_system_autoware/sample_management.hpp"
 #include "reference_system_autoware/types.hpp"
 
-namespace node {
-struct ProcessingSettings {
-  std::string node_name;
-  std::string input_topic;
-  std::string output_topic;
-  std::chrono::nanoseconds number_crunch_time;
-};
-
+namespace reference_nodes {
 class Processing : public rclcpp::Node {
  public:
   Processing(const ProcessingSettings& settings)
@@ -59,4 +53,4 @@ class Processing : public rclcpp::Node {
   subscription_t subscription_;
   std::chrono::nanoseconds number_crunch_time_;
 };
-}  // namespace node
+}  // namespace reference_nodes

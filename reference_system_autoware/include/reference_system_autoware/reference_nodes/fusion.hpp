@@ -18,19 +18,12 @@
 #include <string>
 
 #include "rclcpp/rclcpp.hpp"
+#include "reference_system_autoware/node_settings.hpp"
 #include "reference_system_autoware/number_cruncher.hpp"
 #include "reference_system_autoware/sample_management.hpp"
 #include "reference_system_autoware/types.hpp"
 
-namespace node {
-struct FusionSettings {
-  std::string node_name;
-  std::string input_0;
-  std::string input_1;
-  std::string output_topic;
-  std::chrono::nanoseconds number_crunch_time;
-};
-
+namespace reference_nodes {
 class Fusion : public rclcpp::Node {
  public:
   Fusion(const FusionSettings& settings)
@@ -76,4 +69,4 @@ class Fusion : public rclcpp::Node {
 
   std::chrono::nanoseconds number_crunch_time_;
 };
-}  // namespace node
+}  // namespace reference_nodes
