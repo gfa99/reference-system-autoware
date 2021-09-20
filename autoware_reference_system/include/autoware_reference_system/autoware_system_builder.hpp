@@ -67,80 +67,80 @@ auto create_autoware_nodes()
 
   // processing nodes
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "PointsTransformerFront",
     .input_topic = "FrontLidarDriver",
     .output_topic = "PointsTransformerFront",
     .number_crunch_time = TimingConfig::POINTS_TRANSFORMER_FRONT}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "PointsTransformerRear",
     .input_topic = "RearLidarDriver",
     .output_topic = "PointsTransformerRear",
     .number_crunch_time = TimingConfig::POINTS_TRANSFORMER_REAR}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "VoxelGridDownsampler",
     .input_topic = "PointCloudFusion",
     .output_topic = "VoxelGridDownsampler",
     .number_crunch_time = TimingConfig::VOXEL_GRID_DOWNSAMPLER}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "PointCloudMapLoader",
     .input_topic = "PointCloudMap",
     .output_topic = "PointCloudMapLoader",
     .number_crunch_time = TimingConfig::POINT_CLOUD_MAP_LOADER}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "RayGroundFilter",
     .input_topic = "PointCloudFusion",
     .output_topic = "RayGroundFilter",
     .number_crunch_time = TimingConfig::RAY_GROUND_FILTER}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "EuclideanClusterDetector",
     .input_topic = "RayGroundFilter",
     .output_topic = "EuclideanClusterDetector",
     .number_crunch_time = TimingConfig::EUCLIDEAN_CLUSTER_DETECTOR}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "ObjectCollisionEstimator",
     .input_topic = "EuclideanClusterDetector",
     .output_topic = "ObjectCollisionEstimator",
     .number_crunch_time = TimingConfig::OBJECT_COLLISION_ESTIMATOR}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "MPCController",
     .input_topic = "BehaviorPlanner",
     .output_topic = "MPCController",
     .number_crunch_time = TimingConfig::MPC_CONTROLLER}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "ParkingPlanner",
     .input_topic = "Lanelet2MapLoader",
     .output_topic = "ParkingPlanner",
     .number_crunch_time = TimingConfig::PARKING_PLANNER}));
 
   nodes.emplace_back(
-    std::make_shared<typename SystemType::Processing>(
-      nodes::ProcessingSettings{
+    std::make_shared<typename SystemType::Transformer>(
+      nodes::TransformerSettings{
     .node_name = "LanePlanner",
     .input_topic = "Lanelet2MapLoader",
     .output_topic = "LanePlanner",
@@ -154,7 +154,8 @@ auto create_autoware_nodes()
     .input_0 = "PointsTransformerFront",
     .input_1 = "PointsTransformerRear",
     .output_topic = "PointCloudFusion",
-    .number_crunch_time = TimingConfig::POINT_CLOUD_FUSION}));
+    .number_crunch_time = TimingConfig::POINT_CLOUD_FUSION,
+    .max_input_time_difference = TimingConfig::POINT_CLOUD_FUSION_MAX_INPUT_TIME_DIFF}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Fusion>(
@@ -163,7 +164,8 @@ auto create_autoware_nodes()
     .input_0 = "VoxelGridDownsampler",
     .input_1 = "PointCloudMapLoader",
     .output_topic = "NDTLocalizer",
-    .number_crunch_time = TimingConfig::NDT_LOCALIZER}));
+    .number_crunch_time = TimingConfig::NDT_LOCALIZER,
+    .max_input_time_difference = TimingConfig::NDT_LOCALIZER_MAX_INPUT_TIME_DIFF}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Fusion>(
@@ -172,7 +174,8 @@ auto create_autoware_nodes()
     .input_0 = "MPCController",
     .input_1 = "BehaviorPlanner",
     .output_topic = "VehicleInterface",
-    .number_crunch_time = TimingConfig::VEHICLE_INTERFACE}));
+    .number_crunch_time = TimingConfig::VEHICLE_INTERFACE,
+    .max_input_time_difference = TimingConfig::VEHICLE_INTERFACE_MAX_INPUT_TIME_DIFF }));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Fusion>(
@@ -181,7 +184,8 @@ auto create_autoware_nodes()
     .input_0 = "rviz2",
     .input_1 = "NDTLocalizer",
     .output_topic = "Lanelet2GlobalPlanner",
-    .number_crunch_time = TimingConfig::LANELET_2_GLOBAL_PLANNER}));
+    .number_crunch_time = TimingConfig::LANELET_2_GLOBAL_PLANNER,
+    .max_input_time_difference = TimingConfig::LANELET_2_GLOBAL_PLANNER_MAX_INPUT_TIME_DIFF}));
 
   nodes.emplace_back(
     std::make_shared<typename SystemType::Fusion>(
@@ -190,7 +194,8 @@ auto create_autoware_nodes()
     .input_0 = "Lanelet2Map",
     .input_1 = "Lanelet2GlobalPlanner",
     .output_topic = "Lanelet2MapLoader",
-    .number_crunch_time = TimingConfig::LANELET_2_MAP_LOADER}));
+    .number_crunch_time = TimingConfig::LANELET_2_MAP_LOADER,
+    .max_input_time_difference = TimingConfig::LANELET_2_MAP_LOADER_MAX_INPUT_TIME_DIFF}));
 
   // reactor node
   nodes.emplace_back(

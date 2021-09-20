@@ -28,10 +28,10 @@ namespace nodes
 namespace rclcpp_system
 {
 
-class Processing : public rclcpp::Node
+class Transformer : public rclcpp::Node
 {
 public:
-  explicit Processing(const ProcessingSettings & settings)
+  explicit Transformer(const TransformerSettings & settings)
   : Node(settings.node_name),
     number_crunch_time_(settings.number_crunch_time)
   {

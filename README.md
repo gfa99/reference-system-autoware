@@ -51,7 +51,7 @@ The above node graph can be boiled down to only a handful of node "types" that a
 1. [**Sensor Node**](reference_system/include/reference_system/nodes/rclcpp/sensor.hpp)
     - input node to system
     - publishes message cyclically at some fixed frequency
-2. [**Processing Node**](reference_system/include/reference_system/nodes/rclcpp/processing.hpp)
+2. [**Transformer Node**](reference_system/include/reference_system/nodes/rclcpp/transformer.hpp)
     - one subscriber, one publisher
     - starts processing for N milliseconds after a message is received
     - publishes message after processing is complete

@@ -44,7 +44,7 @@ For simplicity's sake, every node except for the _command nodes_ only ever publi
         - [Point Cloud Map](include/reference_system/autoware_system_builder.hpp#L50)
         - [rviz2](include/reference_system/autoware_system_builder.hpp#L56)
         - [Lanelet2Map](include/reference_system/autoware_system_builder.hpp#62)
-3. [**Processing Nodes**](include/reference_system/nodes/rclcpp/processing.hpp)
+3. [**Transformer Nodes**](include/reference_system/nodes/rclcpp/processing.hpp)
     - all _processing nodes_ have one subscriber and one publisher
     - all _proccing nodes_ start processing for [**50 milliseconds**](include/reference_system/system/timing/default.hpp#L28) after a message is received
     - publishes message after processing is complete

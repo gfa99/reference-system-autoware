@@ -34,9 +34,10 @@ struct FusionSettings
   std::string input_1;
   std::string output_topic;
   std::chrono::nanoseconds number_crunch_time;
+  std::chrono::nanoseconds max_input_time_difference;
 };
 
-struct ProcessingSettings
+struct TransformerSettings
 {
   std::string node_name;
   std::string input_topic;
