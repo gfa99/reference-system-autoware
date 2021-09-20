@@ -58,7 +58,7 @@ struct Default
   static constexpr time_t LANELET_2_MAP_LOADER_MAX_INPUT_TIME_DIFF = milliseconds(125);
 
   // reactor
-  static constexpr time_t BEHAVIOR_PLANNER = milliseconds(1);
+  static constexpr time_t BEHAVIOR_PLANNER = milliseconds(50);
 };
 
 constexpr Default::time_t Default::FRONT_LIDAR_DRIVER;

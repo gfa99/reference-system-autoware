@@ -50,7 +50,7 @@ struct ReactorSettings
   std::string node_name;
   std::vector<std::string> inputs;
   std::string output_topic;
-  std::chrono::nanoseconds number_crunch_time;
+  std::chrono::nanoseconds cycle_time;
 };
 
 struct SensorSettings
